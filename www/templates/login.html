@@ -1,25 +1,34 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
-  </ion-header-bar>
-  <ion-content>
-    <form ng-submit="doLogin()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
-</ion-modal-view>
+<ion-view view-title="Identification">
+  <ion-content>	
+  	<div class="card">
+		<div class="item item-text-wrap">
+			Vous devez créer un compte pour accéder à 
+			toutes les fonctionnalités de l'application
+		</div>
+	</div>
+  	<div class="card">
+		<form novalidate class="simple-form" name="accountForm" >
+    		<ion-list>
+			    <label class="item item-input">
+					<span class="input-label">Email</span>
+					<input type="text" 
+						ng-model="user.email"
+						placeholder="votre email"
+						value="{{user.email}}">
+				</label>
+			
+				<label class="item item-input">
+					<span class="input-label">Mot de passe</span>
+					<input type="text"
+						ng-model="user.password"
+						placeholder="Choisissez un mot de passe"
+						value="{{user.password}}">
+				</label>
+    		</ion-list>
+    	</form>
+		<div class="padding">
+			<button class="button button-block button-positive" ng-click="createAccount()">S'enregistrer</button>
+    	</div>
+	</div>
+	</ion-content>
+</ion-view>

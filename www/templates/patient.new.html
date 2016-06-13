@@ -1,0 +1,52 @@
+<ion-view view-title="Nouvelle fiche patient">
+  <ion-content>
+
+
+<form novalidate class="simple-form" name="accountForm" ng-init="setFormScope(this)">
+
+
+<ion-list>
+	<ion-item class="item-stable">
+			<span class="ion-ios-person-outline"></span>
+           Informations du patient
+	</ion-item>
+		
+	<label class = "item item-input item-select ">
+	   <span class = "input-label">
+	     Civilité
+	   </span>
+	   <select ng-model="newpatient.civilite">	
+		      	<option value="57">Monsieur</option>
+				<option value="58">Madame</option>
+				<option value="59">Mademoiselle</option>
+	   </select>
+	</label>
+		
+	<label class="item item-input"> 
+		<span class="input-label">Nom</span>
+		<input type="text" 
+			placeholder="Nom"
+			ng-model="newpatient.nom">
+	</label> 
+	
+	<label class="item item-input"> 
+		<span class="input-label">prenom</span>
+		<input type="text" 
+			placeholder="Nom"
+			ng-model="newpatient.nom">
+	</label> 
+	
+	<label class="item item-input"> 
+	<span
+		class="input-label">Téléphone</span> <input type="tel"
+		placeholder="Téléphone" ng-model="newpatient.telephone">
+	</label>
+	
+	<label class="item item-input"> 
+	<span
+		class="input-label">Numéro de<br />sécurité sociale</span> <input type="tel"
+		placeholder="Num. sécurité sociale" ng-model="newpatient.numss">
+	</label>
+		
+  </ion-content>
+</ion-view>

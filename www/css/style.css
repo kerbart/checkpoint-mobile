@@ -1,1 +1,42 @@
-/* Empty. Add your own CSS if you like */
+.bar-positive {
+	background-color:#333 !important;
+	bortder:none !important;
+}
+
+.bar.bar-positive {
+	border:none !important;
+	background: none;
+}
+
+
+/*
+** Custom menu
+*/
+.custom-menu {
+	background-color: #333;
+}
+
+.custom-menu .item {
+	border:none;
+	background: none;
+	color:white;
+}
+
+.custom-menu a.item-content {
+	background-color: #333;
+	color: white;
+}
+
+.custom-menu h4 {
+	color: white;
+	padding: 15px;
+	padding-bottom: 0;
+	font-size: 16px;
+}
+
+.custom-menu h3 {
+	color: white;
+	padding: 15px;
+	padding-top: 0;
+	font-size: 18px;
+}

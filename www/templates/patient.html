@@ -1,0 +1,49 @@
+<ion-view view-title="{{patient.prenom}} {{patient.nom}}">
+ <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-ios-compose-outline"
+        	ng-click="modifyPatient()"
+         >
+        </button>
+      </ion-nav-buttons>
+ 	<ion-content>
+		<ion-card>
+  			<ion-item>
+			    <h2>{{patient.civilite}} {{patient.prenom}} {{patient.nom}}</h2>
+			    <div class="row">
+				    <div class="col col-25">
+				    	<span class="larger ion-ios-location-outline"></span>
+				    </div>
+				    <div class="col">
+					    <p>{{patient.adressel1}}<br />
+					    	{{patient.codePostal}}  {{patient.ville}}
+					    </p>
+			    	</div>
+			    </div>
+			    
+			    
+			   <div class="row">
+				    <div class="col col-25">
+				    	<span class="larger ion-ios-telephone-outline"></span>
+				    </div>
+				    <div class="col">
+			    		<a href="tel:{{patient.telephone}}">{{patient.telephone}}</a>
+			    	</div>
+			    </div>
+			     <p>
+			    	numéro de sécurité sociale : {{patient.numss}}
+			    </p>
+			</ion-item>
+			<ion-item>
+				Ajouter une ordonnance
+			</ion-item>
+			<ion-item>
+				Ajouter un commentaire
+			</ion-item>
+			<ion-item>
+				Ajouter une transmission
+			</ion-item>
+
+</ion-card>
+		
+  </ion-content>
+</ion-view>

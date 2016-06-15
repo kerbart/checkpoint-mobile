@@ -13,7 +13,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -40,6 +39,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
   .state('app.patients', {
+	cache: false,
     url: '/patients',
     views: {
       'menuContent': {
@@ -49,11 +49,22 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
   .state('app.patientnew', {
+	cache: false,
     url: '/patient_new',
     views: {
       'menuContent': {
         templateUrl: 'templates/patient.new.html',
         controller: 'PatientsCtrl'
+      }
+    }
+  })
+  .state('app.patient', {
+	cache: false,
+    url: '/patient/:token',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/patient.html',
+        controller: 'PatientCtrl'
       }
     }
   })

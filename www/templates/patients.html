@@ -8,6 +8,32 @@
       </ion-nav-buttons>
   
   <ion-content>
+  	 <ion-refresher
+	    pulling-text="Pull to refresh..."
+	    on-refresh="listPatients()">
+	  </ion-refresher>
+  
+	<ion-list >
+		<ion-item ng-repeat="patient in patients" ng-click="openPatient(patient.token)">
+			<h2>{{patient.civilite}} {{patient.prenom}} {{patient.nom}}</h2>
+		    <p class="ion-ios-location-outline">
+		    	{{patient.adressel1}}<br />
+		    	{{patient.codePostal}} {{patient.ville}}<br />
+		    	
+		    </p>
+		    <p class="ion-ios-telephone-outline">
+		   		<a href="tel:{{patient.telephone}}">{{patient.telephone}} </a>
+		    </p>
+		    
+		    <ion-option-button class="button-assertive">
+		      Supprimer
+		    </ion-option-button>
+		    <ion-option-button class="button-info">
+		      Editer
+		    </ion-option-button>
+		   
+		</ion-item>
+	</ion-list>
 	
 	
 	

@@ -1,34 +1,55 @@
-<ion-view view-title="Identification">
-  <ion-content>	
-  	<div class="card">
-		<div class="item item-text-wrap">
-			Vous devez créer un compte pour accéder à 
-			toutes les fonctionnalités de l'application
-		</div>
-	</div>
-  	<div class="card">
-		<form novalidate class="simple-form" name="accountForm" >
+
+<ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Connexion</h1>
+    </ion-header-bar>
+    <ion-content ng-controller="LoginCtrl">
+  	
+		<form novalidate class="simple-form" name="accountForm" autocomplete="off" >
     		<ion-list>
-			    <label class="item item-input">
-					<span class="input-label">Email</span>
-					<input type="text" 
-						ng-model="user.email"
-						placeholder="votre email"
-						value="{{user.email}}">
-				</label>
+			   
 			
-				<label class="item item-input">
-					<span class="input-label">Mot de passe</span>
-					<input type="text"
-						ng-model="user.password"
-						placeholder="Choisissez un mot de passe"
-						value="{{user.password}}">
-				</label>
+				<div class="item item-input-inset">
+			      <label class="item item-input-wrapper">
+			      <i class="icon ion-ios-email-outline placeholder-icon larger"></i>
+			      <input type="text" 
+			      		ng-model="user.email"
+			      		autocomplete="off"
+			      		value="{{user.email}}"
+			      		placeholder="Votre email">
+			      </label>
+			   </div>
+			
+			
+				<div class="item item-input-inset">
+			      <label class="item item-input-wrapper">
+			      <i class="icon ion-ios-unlocked-outline placeholder-icon larger"></i>
+			      <input type="password" 
+			      		ng-model="user.password"
+			      		autocomplete="off"
+			      		placeholder="Votre mot de passe">
+			      </label>
+			   </div>
+			
+			
+			
     		</ion-list>
+    		<div class="padding">
+				<button class="button button-block button-positive" ng-click="login()">Se connecter</button>
+    		</div>
     	</form>
-		<div class="padding">
-			<button class="button button-block button-positive" ng-click="createAccount()">S'enregistrer</button>
-    	</div>
-	</div>
-	</ion-content>
-</ion-view>
+		
+    	
+	
+			<br />
+			<div style="text-align:center">Pas encore de compte ?</div>
+			<div class="padding">
+				<button class="button button-block button-positive" ng-click="createAccount()">Créer un compte</button>
+    		</div>
+		
+	
+	
+    </ion-content>
+  </ion-modal-view>
+
+

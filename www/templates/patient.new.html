@@ -7,7 +7,7 @@
 
 <ion-list>
 	<ion-item class="item-stable">
-			<span class="ion-ios-person-outline"></span>
+			<span class="ion-ios-person-outline larger"></span>
            Informations du patient
 	</ion-item>
 		
@@ -16,9 +16,8 @@
 	     Civilité
 	   </span>
 	   <select ng-model="newpatient.civilite">	
-		      	<option value="57">Monsieur</option>
-				<option value="58">Madame</option>
-				<option value="59">Mademoiselle</option>
+		      	<option value="Mr">Monsieur</option>
+				<option value="Mme">Madame</option>
 	   </select>
 	</label>
 		
@@ -33,7 +32,7 @@
 		<span class="input-label">prenom</span>
 		<input type="text" 
 			placeholder="Nom"
-			ng-model="newpatient.nom">
+			ng-model="newpatient.prenom">
 	</label> 
 	
 	<label class="item item-input"> 
@@ -47,6 +46,34 @@
 		class="input-label">Numéro de<br />sécurité sociale</span> <input type="tel"
 		placeholder="Num. sécurité sociale" ng-model="newpatient.numss">
 	</label>
+	
+	<ion-item class="item-stable">
+			<span class="ion-ios-location-outline larger"></span>
+           Adresse
+	</ion-item>
+	
+	<label class="item item-input"> 
+	<span
+		class="input-label">Adresse</span> <input type="text"
+		placeholder="Adresse" ng-model="newpatient.adressel1">
+	</label>
+
+	<label class="item item-input"> 
+	<span
+		class="input-label">Code postal</span> <input type="text"
+		placeholder="Code postal" ng-model="newpatient.codePostal">
+	</label>
+	
+	<label class="item item-input"> 
+	<span
+		class="input-label">Ville</span> <input type="text"
+		placeholder="Ville" ng-model="newpatient.ville">
+	</label>	
+</ion-list>
+
+<div class="padding">
+				<button class="button button-block button-positive" ng-click="registerNewPatient()">Sauvegarder la fiche</button>
+    		</div>	
 		
   </ion-content>
 </ion-view>

@@ -41,12 +41,27 @@
           Tournées
         </ion-item>
         <ion-item 
+        	ng-if="!userIsConnected()"
         	menu-close 
         	class="item-icon-left" 
         	href="#/app/login">
         	<i class="icon ion-log-in"></i>
           Se connecter
         </ion-item>
+        
+          <ion-item 
+        	ng-if="userIsConnected()"
+        	menu-close 
+        	class="item-icon-left" 
+        	href="#/app/home" 
+        	ng-click="logout()">
+        	<i class="icon ion-log-out"></i>
+          Se déconnecter
+        </ion-item>
+        
+       
+        
+        
       </ion-list>
     </ion-content>
   </ion-side-menu>

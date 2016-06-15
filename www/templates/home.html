@@ -1,9 +1,20 @@
-<ion-view view-title="Accueil">
+<ion-view view-title="Checkpoint">
   <ion-content>
 
-		<div class="card">
-			<h1>{{getCurrentApplication().name}}</h1>
+		<div class="padding">
+			<p>votre espace : </p>
+			<h3 class="ion-medkit"> {{getCurrentApplication().name}}</h3>
 		</div>
+		
+		<ion-list>
+			<ion-item>Patients
+			
+				  <span class="badge ">260</span>
+			</ion-item>
+			<ion-item>Mes tournées</ion-item>
+		
+		
+		</ion-list>
 		
 
   </ion-content>

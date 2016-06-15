@@ -44,5 +44,79 @@
 	color: white;
 	padding: 15px;
 	padding-top: 0;
-	font-size: 18px;
 }
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:52% 0%}
+    50%{background-position:49% 100%}
+    100%{background-position:52% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:52% 0%}
+    50%{background-position:49% 100%}
+    100%{background-position:52% 0%}
+}
+@keyframes AnimationName { 
+    0%{background-position:52% 0%}
+    50%{background-position:49% 100%}
+    100%{background-position:52% 0%}
+}
+
+/*
+** Login page
+*/
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+ background:none !important;
+}
+
+.login-modal {
+	background: linear-gradient(208deg, #d8d8d8, #8c88a2);
+	background-size: 400% 400%;
+	
+	-webkit-animation: AnimationName 5s ease infinite !important;
+	-moz-animation: AnimationName 5s ease infinite !important;
+	animation: AnimationName 5s ease infinite !important;
+}
+
+.login-modal .item {
+	background:none;
+	border:none;
+}
+
+.login-modal .item label {
+	background-color:#eee;
+}
+
+
+.login-modal .bar-header {
+	border:none !important;
+	background:none;
+}
+
+/*
+** Application Page
+*/
+.app-modal {
+	background: linear-gradient(208deg, #d8d8d8, #8c88a2);
+	background-size: 400% 400%;
+	
+	-webkit-animation: AnimationName 5s ease infinite !important;
+	-moz-animation: AnimationName 5s ease infinite !important;
+	animation: AnimationName 5s ease infinite !important;
+}
+
+.app-modal .item {
+	background:none;
+	border:none;
+}
+
+.app-modal .item label {
+	background-color:#eee;
+}
+
+
+.app-modal .bar-header {
+	border:none !important;
+	background:none;
+}
+

@@ -1,6 +1,33 @@
 var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 
-.controller('AppCtrl', function($scope,$state,appService, $ionicModal,$ionicLoading, $timeout) {
+.controller('AppCtrl', function($scope,$state,appService, $ionicPopup,$ionicHistory, $ionicModal,$ionicLoading, $timeout) {
+	/*
+	 * Definition de tous les tools utilisés par le reste des controllers
+	 */
+	$scope.popup = function(title, text) {
+		$ionicPopup.show({
+		    template: "<b>" + text + "</b>",
+		    title: title,
+		    subTitle: '',
+		    scope: $scope,
+		    buttons: [
+		      {
+		        text: '<b>Annuler</b>',
+		        type: 'button-assertive'
+		      }
+		    ]
+		  })
+		
+	}
+	
+	$scope.goHome = function() {
+		$ionicHistory.nextViewOptions({
+		    disableBack: true
+		  });
+		$state.go("app.home");
+	}
+	
+	
 	$scope.checkUserIsConnected = function() {
 		if (!appService.isUserConnected()) {
 			$ionicModal.fromTemplateUrl('templates/login.html', {
@@ -29,7 +56,6 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 					var applications = response.data;
 					console.log("Applications retrieved :", applications);
 					if (applications.length == 0) {
-						alert("Aucune application, on va en créer une");
 						$scope.createNewApplication();
 					} else {
 						appService.storeApplication(applications[Object.keys(applications)[0]]);
@@ -61,13 +87,15 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 	$scope.application = {};
 	$scope.createApplication = function() {
 		if (!$scope.application.name) {
-			alert("Le nom de votre cabinet est obligatoire");
+			$scope.popup("Champ manquant !", "Le nom de votre cabinet est obligatoire");
 			return ;
 		}
 		appService.createApplication($scope.application.name).then(
 				function(response) {
 					console.log("Response application créée", response.data);
-					appService.storeApplication(response.data)
+					appService.storeApplication(response.data);
+					 $scope.appModal.hide();
+					//$scope.goHome();
 				},
 				function(error) {
 					console.log("Response application créée ERROR", error);					
@@ -190,22 +218,52 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 	}
 })
 
-
-.controller('LoginCtrl', function($scope, $ionicLoading, appService) {
+/**
+ * Login Controller
+ */
+.controller('LoginCtrl', function($scope, $ionicLoading, $ionicPopup, $ionicModal, appService) {
   console.log("Login Controller");
   
   $scope.user = {};
+  $scope.newuser = {};
+
+  $scope.user.email = "";
+  $scope.user.password = "";
+
+  $scope.newuser.email = "";
+  $scope.newuser.password = "";
+  $scope.newuser.passwordAgain = "";
   
+  /**
+   * Ouvre la modal pour la création de compte
+   */
+  $scope.openCreateAccountModal = function() {
+	  $scope.loginModal.hide();
+	  $ionicModal.fromTemplateUrl('templates/create_account.html', {
+		    scope: $scope,
+		    animation: 'slide-in-up'
+		  }).then(function(modal) {
+		    $scope.loginModal = modal;
+		    $scope.loginModal.show();
+		  });
+  }
+  
+  
+  /**
+   * Creation d'un nouveau compte
+   */
   $scope.createAccount = function() {
 	  $ionicLoading
 		.show({
 			template : "Creation de votre comtpe...<br /><ion-spinner icon='spiral' class='spinner-energized' ></ion-spinner>"
 		});
 	  
-	  appService.signInWithEmail($scope.user.email, $scope.user.password).then(
+	  appService.signInWithEmail($scope.newuser.email, $scope.newuser.password).then(
 			  function(response) {
 				  $ionicLoading.hide();
 				  if (response.data.error) {
+					  $scope.popup("Impossible de se connecter", "Vérifiez votre email/mot de passe.");
+					  
 					  alert(response.data.error);
 					  return ;
 				  }
@@ -231,7 +289,8 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 			  function(response) {
 				  $ionicLoading.hide();
 				  if (response.data.error) {
-					  alert(response.data.error);
+					  $scope.popup("Impossible de se connecter", "Vérifiez votre email/mot de passe.");
+					  console.log("Erreur lors du login", response.data.error);
 					  return ;
 				  }
 				  appService.storeUser(response.data.utilisateur);
@@ -240,7 +299,8 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 				  $scope.checkApplicationExists();
 			  },
 			  function (error) {
-				  alert(error);
+				  console.log("Erreur technique !", error);
+				  $scope.popup("Impossible de se connecter", "Veuillez rééssayer dans quelques moments !");
 				  $ionicLoading.hide();
 			  }
 	  );

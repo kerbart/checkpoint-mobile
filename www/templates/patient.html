@@ -1,11 +1,12 @@
-<ion-view view-title="{{patient.prenom}} {{patient.nom}}">
+<ion-view cache-view="false">
+  <ion-nav-title> {{ patient.nom }} </ion-nav-title>
  <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-ios-compose-outline"
-        	ng-click="modifyPatient()"
+        	ng-click="openPatientUpdate('{{patient.token}}')"
          >
         </button>
       </ion-nav-buttons>
- 	<ion-content>
+ 	<ion-content >
 		<ion-card>
   			<ion-item>
 			    <h2>{{patient.civilite}} {{patient.prenom}} {{patient.nom}}</h2>
@@ -30,17 +31,29 @@
 			    	</div>
 			    </div>
 			     <p>
-			    	numéro de sécurité sociale : {{patient.numss}}
+			    	numéro de sécurité sociale : {{patient.numeroSS}}
 			    </p>
 			</ion-item>
-			<ion-item>
+			<ion-item ng-click="openNewOrdonnance()">
+			<i class="icon ion-camera"></i>
 				Ajouter une ordonnance
+				<div class="item-icon-right">
+        			<i class="icon ion-ios-arrow-right"></i>
+    			</div>
 			</ion-item>
 			<ion-item>
+			<i class="icon ion-ios-chatbubble"></i>
 				Ajouter un commentaire
+				<div class="item-icon-right">
+        			<i class="icon ion-ios-arrow-right"></i>
+    			</div>
 			</ion-item>
 			<ion-item>
+			<i class="icon ion-android-wifi"></i>
 				Ajouter une transmission
+				<div class="item-icon-right">
+        			<i class="icon ion-ios-arrow-right"></i>
+    			</div>
 			</ion-item>
 
 </ion-card>

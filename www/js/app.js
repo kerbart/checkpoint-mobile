@@ -44,6 +44,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
 })
 
+.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.backButton.text('');
+})
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -82,6 +85,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+  .state('app.patientupdate', {
+	cache: false,
+    url: '/patient_update/:token',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/patient.new.html',
+        controller: 'PatientCtrl'
+      }
+    }
+  })
   .state('app.patient', {
 	cache: false,
     url: '/patient/:token',
@@ -92,8 +105,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
-
-  
+ 
   .state('app.login', {
     url: '/login',
     views: {

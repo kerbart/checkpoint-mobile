@@ -2,20 +2,30 @@
   <ion-content>
 
 		<div class="padding">
-			<p>votre espace : </p>
-			<h3 class="ion-medkit"> {{getCurrentApplication().name}}</h3>
+		
+			<h3 class="ion-home"> {{getCurrentApplication().name}}</h3>
 		</div>
 		
 		<ion-list>
-			<ion-item>Patients
-			
-				  <span class="badge ">260</span>
+			<ion-item href="#/app/patients" >
+				<i class="icon ion-ios-people"></i>
+				Patients
+				<span class="badge badge-stable">260</span>     
+				<div class="item-icon-right">
+			    	<i class="icon ion-ios-arrow-right"></i>
+			    </div>
 			</ion-item>
-			<ion-item>Mes tournées</ion-item>
+			<ion-item href="#/app/tournees">
+				<i class="icon ion-ios-medkit"></i>
+			Mes tournées
+			<span class="badge badge-stable">3</span>     
+				<div class="item-icon-right">
+			    	<i class="icon ion-ios-arrow-right"></i>
+			    </div>
+			</ion-item>
 		
 		
 		</ion-list>
 		
-
   </ion-content>
 </ion-view>

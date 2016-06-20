@@ -1,11 +1,23 @@
 .bar-positive {
-	background-color:#333 !important;
+	background-color:#7d0000 !important;
 	bortder:none !important;
 }
 
 .bar.bar-positive {
 	border:none !important;
 	background: none;
+}
+
+.item .badge {
+    right: 50px;
+}
+
+.button-large-footer {
+    padding: 0 16px !important;
+    min-width: 68px !important;
+    min-height: 59px !important;
+    font-size: 20px !important;
+    line-height: 53px !important;
 }
 
 /*
@@ -19,7 +31,7 @@
 ** Custom menu
 */
 .custom-menu {
-	background-color: #333;
+	background-color: #7d0000;
 }
 
 .custom-menu .item {
@@ -29,7 +41,7 @@
 }
 
 .custom-menu a.item-content {
-	background-color: #333;
+	background-color: #7d0000;
 	color: white;
 }
 

@@ -1,6 +1,15 @@
 var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 
-.controller('AppCtrl', function($scope,$state,appService, $ionicPopup,$ionicHistory, $ionicModal,$ionicLoading, $timeout) {
+.controller('AppCtrl', function(
+							$scope,
+							$state,
+							$ionicPopup,
+							$ionicHistory,
+							$ionicModal,
+							$ionicLoading,
+							$cordovaCalendar,
+							$timeout,
+							appService) {
 	/*
 	 * Definition de tous les tools utilisés par le reste des controllers
 	 */
@@ -19,6 +28,16 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 		  })
 		
 	}
+	 ionic.Platform.ready(function(){
+//	 $cordovaCalendar.createCalendar({
+//		    calendarName: 'Cordova Calendar',
+//		    calendarColor: '#FF0000'
+//		  }).then(function (result) {
+//		    // success
+//		  }, function (err) {
+//		    // error
+//		  });
+	 });
 	
 	$scope.goHome = function() {
 		$ionicHistory.nextViewOptions({
@@ -107,13 +126,13 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 
 
 .controller('HomeCtrl', function($scope, $ionicLoading, appService) {
- 
+
   
 })
 
 .controller('PatientsCtrl', function($scope, $state, $ionicLoading, $ionicHistory, appService) {
 	
-	$scope.newpatient = {};
+	$scope.patient = {};
 	$scope.patients = {};
 	
 	
@@ -126,7 +145,7 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 	 * Ajoute un nouveau patient
 	 */
 	$scope.registerNewPatient = function() {
-		appService.createPatient($scope.newpatient).then(
+		appService.createPatient($scope.patient).then(
 				function (response) {
 					$ionicLoading.show({
 					      template: 'Fiche patient créée !<br /><span class="ion-ios-checkmark-outline larger"></span>'
@@ -135,6 +154,7 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 						$scope.listPatients();
 						$ionicHistory.goBack();		
 						$ionicLoading.hide();
+						$scope.patient = {};
 					}, 1000)
 				},
 				function (error) {
@@ -142,6 +162,8 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 				}
 		);
 	}
+	
+	
   
 	/**
 	 * Liste les patients existant pour l'application enregistrée
@@ -178,15 +200,58 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 										$stateParams, 
 										$ionicLoading, 
 										$ionicActionSheet,
-										$ionicHistory, 
+										$ionicHistory,
+										$ionicModal,
+										$ionicPopup,
+										$cordovaCamera,
+										$cordovaFileTransfer,
 										appService) {
 	$scope.patient = {};
 
+	$scope.ordonnance = {};
+	$scope.$watch('ordonnance.nombreJours', function(newValue, oldValue) {
+		var dateDebut = new Date($scope.ordonnance.dateDebut);  
+		var dateFin = new Date();
+		console.log("Found date", dateDebut);
+		dateFin.setDate(dateDebut.getDate() + $scope.ordonnance.nombreJours);
+		console.log(dateFin);
+		$scope.ordonnance.dateFin = dateFin;
+	});
+	
+	
+	/**
+	 * Ounvre une fiche patient
+	 */
+	$scope.openPatientUpdate = function() {
+		console.log("Token for patient = " + $scope.patient.token + "go to patient open udpate");
+		$state.go('app.patientupdate',{token:$scope.patient.token});
+	}
+	/**
+	 * Ajoute un nouveau patient
+	 */
+	$scope.updatePatient = function() {
+		appService.updatePatient($scope.patient).then(
+				function (response) {
+					$ionicLoading.show({
+					      template: 'Fiche patient mise à jour !<br /><span class="ion-ios-checkmark-outline larger"></span>'
+				    });
+					window.setTimeout(function() {
+						$ionicLoading.hide();
+						$scope.patient = {};
+						$ionicHistory.goBack();		
+					}, 1000)
+				},
+				function (error) {
+					alert("error" + error);
+				}
+		);
+	}
+	
 	$scope.loadPatient = function(token) {
 		appService.loadPatient(token).then(
 				function(response) {
 					$scope.patient = response.data.patient;
-					console.log("Le patient a ete chargé", $scope.patient);
+					console.log("Le patient a ete chargé avec le token " + token, $scope.patient);
 					
 				},
 				function(error) {
@@ -214,8 +279,67 @@ var starter = angular.module('starter.controllers', ['ngCordova', 'ngStorage'])
 		       return true;
 		     }
 		   });
-
 	}
+	
+	$scope.openNewOrdonnance = function() {
+		$ionicModal.fromTemplateUrl('templates/ordonnance.html', {
+		    scope: $scope,
+		    animation: 'slide-in-up'
+		  }).then(function(modal) {
+		    $scope.ordonnanceModal = modal;
+		    $scope.ordonnanceModal.show();
+		  });
+	}
+	
+	$scope.saveOrdonnance = function() {
+		if (!$scope.ordonnance.dateDebut) {
+			$ionicPopup.alert({
+			     title: "Champ manquant",
+			     template: "La date de début d'ordonnance doit être renseignée"
+			   });
+			return ;
+		}
+		
+		if (!$scope.ordonnance.dateFin) {
+			$ionicPopup.alert({
+			     title: "Champ manquant",
+			     template: "La date de fin d'ordonnance ou le nombre de jours doivent être renseignés"
+			   });
+			return ;
+		}
+		appService.saveOrdonnance($scope.ordonnance);
+		appService.saveOrdonnance("unToken", $scope.picData);
+		$ionicLoading.show({
+		      template: 'Ordonnance créée !<br /><span class="ion-ios-checkmark-outline larger"></span>'
+	    });
+		window.setTimeout(function() {	
+			$ionicLoading.hide();
+			$scope.exitOrdonnance ();
+		}, 1000)
+	}
+	
+	$scope.exitOrdonnance = function() {
+		 $scope.ordonnanceModal.hide();
+	}
+	
+	$scope.takePic = function() {
+        var options =   {
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+            encodingType: 0     // 0=JPG 1=PNG
+        }
+        navigator.camera.getPicture(onSuccess,onFail,options);
+	}
+    var onSuccess = function(FILE_URI) {
+        console.log(FILE_URI);
+        $scope.picData = FILE_URI;
+        $scope.$apply();
+    };
+    var onFail = function(e) {
+        console.log("On fail " + e);
+    };
+    
 })
 
 /**

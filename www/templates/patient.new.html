@@ -11,11 +11,14 @@
            Informations du patient
 	</ion-item>
 		
+	
+		<ion-toggle ng-model="patient.actif" toggle-class="toggle-calm">Actif</ion-toggle>
+		
 	<label class = "item item-input item-select ">
 	   <span class = "input-label">
 	     Civilité
 	   </span>
-	   <select ng-model="newpatient.civilite">	
+	   <select ng-model="patient.civilite">	
 		      	<option value="Mr">Monsieur</option>
 				<option value="Mme">Madame</option>
 	   </select>
@@ -25,26 +28,26 @@
 		<span class="input-label">Nom</span>
 		<input type="text" 
 			placeholder="Nom"
-			ng-model="newpatient.nom">
+			ng-model="patient.nom">
 	</label> 
 	
 	<label class="item item-input"> 
 		<span class="input-label">prenom</span>
 		<input type="text" 
 			placeholder="Nom"
-			ng-model="newpatient.prenom">
+			ng-model="patient.prenom">
 	</label> 
 	
 	<label class="item item-input"> 
 	<span
 		class="input-label">Téléphone</span> <input type="tel"
-		placeholder="Téléphone" ng-model="newpatient.telephone">
+		placeholder="Téléphone" ng-model="patient.telephone">
 	</label>
 	
 	<label class="item item-input"> 
 	<span
 		class="input-label">Numéro de<br />sécurité sociale</span> <input type="tel"
-		placeholder="Num. sécurité sociale" ng-model="newpatient.numss">
+		placeholder="Num. sécurité sociale" ng-model="patient.numeroSS">
 	</label>
 	
 	<ion-item class="item-stable">
@@ -55,25 +58,29 @@
 	<label class="item item-input"> 
 	<span
 		class="input-label">Adresse</span> <input type="text"
-		placeholder="Adresse" ng-model="newpatient.adressel1">
+		placeholder="Adresse" ng-model="patient.adressel1">
 	</label>
 
 	<label class="item item-input"> 
 	<span
 		class="input-label">Code postal</span> <input type="text"
-		placeholder="Code postal" ng-model="newpatient.codePostal">
+		placeholder="Code postal" ng-model="patient.codePostal">
 	</label>
 	
 	<label class="item item-input"> 
 	<span
 		class="input-label">Ville</span> <input type="text"
-		placeholder="Ville" ng-model="newpatient.ville">
+		placeholder="Ville" ng-model="patient.ville">
 	</label>	
 </ion-list>
 
 <div class="padding">
-				<button class="button button-block button-positive" ng-click="registerNewPatient()">Sauvegarder la fiche</button>
-    		</div>	
+	<button class="button button-block button-positive" ng-click="registerNewPatient()">Sauvegarder la fiche</button>
+</div>	
+
+<div class="padding">
+	<button class="button button-block button-positive" ng-click="updatePatient()">mettre à jour la fiche</button>
+</div>	
 		
   </ion-content>
 </ion-view>

@@ -1,7 +1,8 @@
 starter.service('appService', function ($log, $http, $localStorage, $q) {
 	return {
 		checpointAPIUrl : function() {
-			return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
+			 return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
+			// return "http://192.168.0.18:8080/checkpoint/api/";
 		},
 		isUserConnected : function() {
 			return $localStorage.user != undefined;
@@ -83,21 +84,30 @@ starter.service('appService', function ($log, $http, $localStorage, $q) {
 			return $http.post(this.checpointAPIUrl() + "patient/list",
 					postData);
 		},
-		saveOrdonnance : function(ordonnance) {
+		saveOrdonnance : function(ordonnance, patientToken) {
 			console.log("Saving ordonnance", ordonnance);
+			var postData = {
+					  "applicationToken": this.getApplication().token,
+					  "utilisateurToken": this.getUser().token,
+					  "patientToken" : patientToken, 
+					  "ordonnance" : ordonnance
+					};
+			return $http.post(this.checpointAPIUrl() + "ordonnance/new",
+					postData);
+			
 		},
 		saveOrdonnancePicture : function(ordonnanceToken, file) {
 			console.log("Saving ordonnance file", ordonnanceToken, file);
 			 var myImg = file;
 		        var options = new FileUploadOptions();
-		        options.fileKey="post";
+		        options.fileKey="source";
 		        options.chunkedMode = false;
 		        var params = {};
-		        params.user_token = "token";
-		        params.user_email = "email";
+		        params.applicationToken = this.getApplication().token;
+		        params.ordonnanceToken = ordonnanceToken;
 		        options.params = params;
 		        var ft = new FileTransfer();
-		        ft.upload(myImg, encodeURI("http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/"), 
+		        return ft.upload(myImg, encodeURI(this.checpointAPIUrl() + "ordonnance/new/file"), 
 		        		function(success) {
 		        	console.log("Success !!", success);
 		        }, function(error) {

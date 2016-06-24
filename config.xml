@@ -6,8 +6,8 @@
 		infimières
 		liberaux.
 	</description>
-  <author email="damien@kerbart.com" href="http://kerbart.com/checkpoint">
-		Your Name Here
+  <author email="damien@kerbart.com" href="http://kerbart.com/">
+		Damien KERBART
 	</author>
   <content src="index.html"/>
   <access origin="*"/>

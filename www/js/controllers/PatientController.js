@@ -124,7 +124,17 @@ starter.controller('PatientCtrl', function($scope,
 						$scope.ordonnance.token = response.data.ordonnance.token;
 						console.log("Save success with token " + response.data.ordonnance.token);
 						console.log("Uploading file...");
-						appService.saveOrdonnancePicture($scope.ordonnance.token, $scope.picData);					
+						appService.saveOrdonnancePicture($scope.ordonnance.token, $scope.picData).then(
+								function(success) {
+									$ionicLoading.hide();
+									$scope.ordonnanceModal.hide();
+								},
+								function(error) {
+									$ionicLoading.hide();
+									$scope.ordonnanceModal.hide();
+									
+								}
+						);					
 					} else {
 						alert("erreur:  " + response.data.error);
 					}
@@ -136,10 +146,7 @@ starter.controller('PatientCtrl', function($scope,
 		);
 		
 		
-		window.setTimeout(function() {	
-			$ionicLoading.hide();
-			$scope.exitOrdonnance ();
-		}, 1000)
+		
 	}
 	
 	$scope.exitOrdonnance = function() {

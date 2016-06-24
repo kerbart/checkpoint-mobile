@@ -1,4 +1,4 @@
-starter.service('appService', function ($log, $http, $localStorage, $q) {
+starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLoading, $ionicHistory) {
 	return {
 		checpointAPIUrl : function() {
 			 return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
@@ -97,7 +97,12 @@ starter.service('appService', function ($log, $http, $localStorage, $q) {
 			
 		},
 		saveOrdonnancePicture : function(ordonnanceToken, file) {
+			 var deffered = $q.defer();
+			
 			console.log("Saving ordonnance file", ordonnanceToken, file);
+			$ionicLoading.show({
+			      template: 'Télérchargement de l\'ordonnance en cours...<br /><span class="ion-ios-checkmark-outline larger"></span>'
+		    });
 			 var myImg = file;
 		        var options = new FileUploadOptions();
 		        options.fileKey="source";
@@ -107,12 +112,35 @@ starter.service('appService', function ($log, $http, $localStorage, $q) {
 		        params.ordonnanceToken = ordonnanceToken;
 		        options.params = params;
 		        var ft = new FileTransfer();
-		        return ft.upload(myImg, encodeURI(this.checpointAPIUrl() + "ordonnance/new/file"), 
+		        ft.onprogress = function(progressEvent) {
+		            if (progressEvent.lengthComputable) {
+		            	$ionicLoading.show({
+						      template: Math.round((progressEvent.loaded / progressEvent.total * 100)) + '%  téléchargé ...<br /><span class="ion-ios-clock-outline larger"></span>'
+					    });
+		            } 
+		        };
+		        
+		         ft.upload(myImg, encodeURI(this.checpointAPIUrl() + "ordonnance/new/file"), 
 		        		function(success) {
 		        	console.log("Success !!", success);
+		        	$ionicLoading.show({
+					      template: 'L\'ordonnance a été correctement téléchargée !.<br /><span class="ion-ios-checkmark-outline larger"></span>'
+				    });
+		        	 deffered.resolve(success);
+		        	
+		        	
 		        }, function(error) {
 		        	console.log("Error !!", error);
+		        	$ionicLoading.show({
+					      template: 'Impossible de télécharger l\'ordonnance !.<br /><span class="ion-ios-checkmark-outline larger"></span>'
+				    });
+		        	
+		        	 deffered.resolve(error);
+		        	 
+		        	
 		        }, options);
+		         
+		         return deffered.promise;
 		},
 	}
 });

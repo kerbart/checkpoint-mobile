@@ -34,6 +34,30 @@
 			    	numéro de sécurité sociale : {{patient.numeroSS}}
 			    </p>
 			</ion-item>
+			
+			
+			<ion-list>
+				<ion-item ng-repeat="ordonnance in ordonnances">
+					<div class="row">
+						<div class="col">
+							<i class="ion-document"></i> Ordonnance
+							<p>
+							du {{ordonnance.dateDebut | date:'EEE d LLLL yyyy'}} <br />
+							au {{ordonnance.dateFin | date:'EEE d LLLL yyyy'}}
+							</p>
+						</div>
+						<div class="col-25">
+							<img ng-repeat="file in ordonnance.files" src="{{getOrdonnancePicture(file.token)}}" style="width:75px" />
+						</div>
+					</div>
+					
+					
+					
+				</ion-item>
+			</ion-list>
+			
+			
+			
 			<ion-item ng-click="openNewOrdonnance()">
 			<i class="icon ion-camera"></i>
 				Ajouter une ordonnance

@@ -16,6 +16,9 @@ starter.controller('PatientCtrl', function($scope,
 	$scope.patient = {};
 	// permet de stocker l'ordonnance avant la sauvegarde
 	$scope.ordonnance = {};
+	// premet de récupérer les ordonnances
+	$scope.ordonnances = {};
+
 	
 	// si le nombre de jours (dans l'ordonnance
 	$scope.$watch('ordonnance.nombreJours', function(newValue, oldValue) {
@@ -61,6 +64,15 @@ starter.controller('PatientCtrl', function($scope,
 				function(response) {
 					$scope.patient = response.data.patient;
 					console.log("Le patient a ete chargé avec le token " + token, $scope.patient);
+					 appService.listOrdonnances(token).then(
+							 function(response) {
+								 $scope.ordonnances = response.data.ordonnances;
+								 console.log("ordonnances trouvées ", $scope.ordonnances);
+							 },
+							 function(error) {
+								 alert("impossible de récupérer les ordonnances");
+							 }
+					 );
 					
 				},
 				function(error) {
@@ -100,6 +112,10 @@ starter.controller('PatientCtrl', function($scope,
 		  });
 	}
 	
+	$scope.getOrdonnancePicture = function(fileToken) {
+		return appService.getOrdonnancePictureURL(fileToken);
+	}
+	
 	$scope.saveOrdonnance = function() {
 		if (!$scope.ordonnance.dateDebut) {
 			$ionicPopup.alert({
@@ -124,17 +140,22 @@ starter.controller('PatientCtrl', function($scope,
 						$scope.ordonnance.token = response.data.ordonnance.token;
 						console.log("Save success with token " + response.data.ordonnance.token);
 						console.log("Uploading file...");
-						appService.saveOrdonnancePicture($scope.ordonnance.token, $scope.picData).then(
-								function(success) {
-									$ionicLoading.hide();
-									$scope.ordonnanceModal.hide();
-								},
-								function(error) {
-									$ionicLoading.hide();
-									$scope.ordonnanceModal.hide();
-									
-								}
-						);					
+						
+						if ($scope.picData) {
+							appService.saveOrdonnancePicture($scope.ordonnance.token, $scope.picData).then(
+									function(success) {
+										$ionicLoading.hide();
+										$scope.ordonnanceModal.hide();
+									},
+									function(error) {
+										$ionicLoading.hide();
+										$scope.ordonnanceModal.hide();
+									}
+							);
+						} else {
+							$ionicLoading.hide();
+							$scope.ordonnanceModal.hide();
+						}
 					} else {
 						alert("erreur:  " + response.data.error);
 					}

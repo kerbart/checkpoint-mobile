@@ -1,8 +1,8 @@
 starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLoading, $ionicHistory) {
 	return {
 		checpointAPIUrl : function() {
-			 return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
-			// return "http://192.168.0.18:8080/checkpoint/api/";
+			// return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
+			 return "http://192.168.1.41:8080/checkpoint/api/";
 		},
 		isUserConnected : function() {
 			return $localStorage.user != undefined;
@@ -84,6 +84,13 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 			return $http.post(this.checpointAPIUrl() + "patient/list",
 					postData);
 		},
+		listOrdonnances : function(patientToken) {
+			var postData = {
+					  "applicationToken": this.getApplication().token,
+					  "patientToken" : patientToken
+					};
+			return $http.post(this.checpointAPIUrl() + "patient/ordonnances?patientToken=" + patientToken + "&applicationToken=" + this.getApplication().token);
+		},
 		saveOrdonnance : function(ordonnance, patientToken) {
 			console.log("Saving ordonnance", ordonnance);
 			var postData = {
@@ -95,6 +102,9 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 			return $http.post(this.checpointAPIUrl() + "ordonnance/new",
 					postData);
 			
+		},
+		getOrdonnancePictureURL : function(fileToken) {
+			return this.checpointAPIUrl() + "/patient/ordonnance/photo?applicationToken=" + this.getApplication().token + "&fileToken=" + fileToken; 
 		},
 		saveOrdonnancePicture : function(ordonnanceToken, file) {
 			 var deffered = $q.defer();

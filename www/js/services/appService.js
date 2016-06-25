@@ -1,8 +1,8 @@
 starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLoading, $ionicHistory) {
 	return {
 		checpointAPIUrl : function() {
-			// return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
-			 return "http://192.168.1.41:8080/checkpoint/api/";
+			return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
+			// return "http://192.168.1.41:8080/checkpoint/api/";
 		},
 		isUserConnected : function() {
 			return $localStorage.user != undefined;

@@ -18,15 +18,20 @@
 							class="input-label">Nombre de jours</span> <input type="number"
 							 ng-model="ordonnance.nombreJours">
 						</label>
-						<label class="item item-input"> 
-						<span
-							class="input-label">Ou</span>
-						</label>
+						<div class="item " style="text-align:center"> 
+						Ou
+						</div>
 						<label class="item item-input"> 
 						<span
 							class="input-label">Date de fin</span> <input type="date"
 							 ng-model="ordonnance.dateFin">
 						</label>
+				
+						<label class="item item-input"> 
+						<span
+							class="input-label">Commentaire</span> <textarea ng-model="ordonnance.commentaire" style=height:75px></textarea>
+						</label>
+				
 				
 						<ion-item ng-click="takePic()">
 							Ajouter une photo
@@ -44,17 +49,17 @@
     		</div>
     	</div>
     	
-		<div class="row">
-			<div class="col">
+		
+    </ion-content>
+   
+		<div class="row custom-footer" >
+			<div class="col" style="text-align:center">
 		    	<button class="button button-assertive   icon-right ion-android-cancel" ng-click="exitOrdonnance()" > Annuler</button>			
 			</div>
-			<div class="col">
+			<div class="col" style="text-align:center">
 			   	<button class="button button-positive  icon-right ion-checkmark-round" ng-click="saveOrdonnance()"> Enregistrer</button>
 			</div>
 		</div>
-
-    </ion-content>
-   
 
   </ion-modal-view>
 

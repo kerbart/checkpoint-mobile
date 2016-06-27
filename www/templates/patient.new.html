@@ -34,7 +34,7 @@
 	<label class="item item-input"> 
 		<span class="input-label">prenom</span>
 		<input type="text" 
-			placeholder="Nom"
+			placeholder="Prénom"
 			ng-model="patient.prenom">
 	</label> 
 	
@@ -74,11 +74,11 @@
 	</label>	
 </ion-list>
 
-<div class="padding">
+<div class="padding" ng-if="!patient.id">
 	<button class="button button-block button-positive" ng-click="registerNewPatient()">Sauvegarder la fiche</button>
 </div>	
 
-<div class="padding">
+<div class="padding" ng-if="patient.id">
 	<button class="button button-block button-positive" ng-click="updatePatient()">mettre à jour la fiche</button>
 </div>	
 		

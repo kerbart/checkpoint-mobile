@@ -1,15 +1,20 @@
 
-<ion-view cache-view="false">
-    <ion-nav-bar class="bar-light">
+<ion-view cache-view="false" class="bg-login">
+    <ion-nav-bar class="no-border">
 		<!--Logo-->
 		<ion-nav-buttons  side="right">
 		</ion-nav-buttons>
 		<ion-nav-buttons side="left">
 		</button>
 	</ion-nav-bar>
-    <ion-content class="login-content">  	
+    <ion-content class="login-content">  
+    
+    	<div style="text-align:center">
+			<img src="img/check.png" style="width:40%" />
+		</div>
+    	
 		<form novalidate class="simple-form" name="accountForm" dont-fill >
-    		<ion-list>
+    		<ion-list class="no-border">
 				<div class="item item-input-inset">
 			      <label class="item item-input-wrapper">
 			      <i class="icon ion-ios-email-outline placeholder-icon larger"></i>
@@ -37,13 +42,22 @@
 			      		ng-model="newuser.passwordAgain"
 			      		ng-required="true"
 			      		autocomplete="off"
-			      		placeholder="Votre mot de passe">
+			      		placeholder="retapez votre mot de passe">
 			      </label>
 			   </div>
     		</ion-list>
     		<div class="padding">
-				<button class="button button-block button-positive" ng-click="createAccount()">Créer mon compte</button>
+				<button class="button button-block " ng-click="createAccount()">Créer mon compte</button>
     		</div>
+    		
+    		<div style="text-align: center;color:white">
+			J'ai mes identifiants, 
+				<a 	href="javascript:;"
+					style="color:white"
+					ng-click="goLogin()">me connecter.</a>
+		</div>
+    		
+    		
     	</form>
     </ion-content>
   </ion-view>

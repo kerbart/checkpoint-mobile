@@ -7,6 +7,12 @@
         </button>
       </ion-nav-buttons>
  	<ion-content >
+ 	 <ion-refresher
+	    pulling-text="Tirez vers le bas pour rafraichir..."
+	    on-refresh="loadPatient(patient.token)">
+	  </ion-refresher>
+ 	
+ 	
 		<ion-card>
   			<ion-item>
 			    <h2>{{patient.civilite}} {{patient.prenom}} {{patient.nom}}</h2>
@@ -36,51 +42,69 @@
 			</ion-item>
 			
 			
+			<ion-item ng-click="openNewOrdonnance()" style="background-color:#DEDEDE">
+			<i class="icon ion-camera"></i>
+				Ajouter une ordonnance
+				<div class="item-icon-right">
+        			<i class="icon ion-ios-plus-outline"></i>
+    			</div>
+			</ion-item>
+			<ion-item ng-click="addCommentaire()" style="background-color:#DEFEDE">
+			<i class="icon ion-ios-chatbubble"></i>
+				Ajouter un commentaire
+				<div class="item-icon-right">
+        			<i class="icon ion-ios-plus-outline"></i>
+    			</div>
+			</ion-item>
+		
+			
+			
 			<ion-list>
-				<ion-item ng-repeat="ordonnance in ordonnances">
-					<div class="row">
-						<div class="col">
-							<i class="ion-document"></i> Ordonnance
-							<p>
-							du {{ordonnance.dateDebut | date:'EEE d LLLL yyyy'}} <br />
-							au {{ordonnance.dateFin | date:'EEE d LLLL yyyy'}}
-							</p>
-						</div>
-						<div class="col-25">
-							<img ng-repeat="file in ordonnance.files" src="{{getOrdonnancePicture(file.token)}}" style="width:75px" />
-						</div>
-					</div>
-					
-					
-					
+				<ion-item ng-repeat="ordonnance in ordonnances" href="javascript:;" ng-click="openVisuOrdonnance(ordonnance)">		
+					<i class="ion-paperclip "></i> Ordonnance
+					<p>
+					du {{ordonnance.dateDebut | date:'EEEE d LLLL yyyy'}} <br />
+					au {{ordonnance.dateFin | date:'EEEE d LLLL yyyy'}}
+					</p>
+					<p>
+					{{ordonnance.commentaire}}
+					</p>
+					<div class="item-icon-right">
+		        		<i class="icon ion-ios-arrow-right"></i>
+		    		</div>
+					<ion-option-button class="button-assertive" ng-click="removeOrdonnance(ordonnance)">
+				      Supprimer
+				    </ion-option-button>
+				    <ion-option-button class="button-positive" ng-click="openVisuOrdonnance(ordonnance)">
+				      Voir
+				    </ion-option-button>
+				</ion-item>
+			</ion-list>
+			
+			
+				<ion-list>
+				<ion-item ng-repeat="commentaire in commentaires" href="javascript:;" >		
+					<i class="ion-ios-chatbubble "></i> {{commentaire.dateCreation | date:'EEEE d LLLL yyyy'}}
+					<p>
+					<i>
+					Mon texte ici {{commentaire.texte}}
+					</i>
+					</p>
+					<ion-option-button class="button-assertive" >
+				      Supprimer
+				    </ion-option-button>
+				    <ion-option-button class="button-positive" >
+				      Voir
+				    </ion-option-button>
 				</ion-item>
 			</ion-list>
 			
 			
 			
-			<ion-item ng-click="openNewOrdonnance()">
-			<i class="icon ion-camera"></i>
-				Ajouter une ordonnance
-				<div class="item-icon-right">
-        			<i class="icon ion-ios-arrow-right"></i>
-    			</div>
-			</ion-item>
-			<ion-item>
-			<i class="icon ion-ios-chatbubble"></i>
-				Ajouter un commentaire
-				<div class="item-icon-right">
-        			<i class="icon ion-ios-arrow-right"></i>
-    			</div>
-			</ion-item>
-			<ion-item>
-			<i class="icon ion-android-wifi"></i>
-				Ajouter une transmission
-				<div class="item-icon-right">
-        			<i class="icon ion-ios-arrow-right"></i>
-    			</div>
-			</ion-item>
+			</ion-card>
+			
+			
 
-</ion-card>
 		
   </ion-content>
 </ion-view>

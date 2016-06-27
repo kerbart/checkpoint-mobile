@@ -1,5 +1,5 @@
 <ion-view view-title="Patients">
-  
+
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-ios-plus-outline"
         	ng-click="addNewPatient()"
@@ -13,6 +13,16 @@
 	    on-refresh="listPatients()">
 	  </ion-refresher>
   
+  	<div class="card" ng-if="patients.length == 0">
+  		<div class="item item-text-wrap">
+  		Aucun patient trouvé. Vous pouvez en ajouter en appuyant sur le boutton <span class="ion-ios-plus-outline" ></span> en haut à droite.
+  		</div>
+  	</div>
+  
+  	<div  ng-if="patients.length > 0">
+<ion-search placeholder="Search a user" filter="search"></ion-search>
+
+	</div>
 	<ion-list >
 		<ion-item ng-repeat="patient in patients" ng-click="openPatient(patient.token)">
 			<h2>{{patient.civilite}} {{patient.prenom}} {{patient.nom}}</h2>

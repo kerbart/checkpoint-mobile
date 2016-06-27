@@ -49,7 +49,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		storeUser : function(user) {
 			$localStorage.user  = user;
 		},
-		removeUser : function(user) {
+		logout : function(user) {
 			$localStorage.user  = undefined;
 			$localStorage.application = undefined;
 		},
@@ -96,6 +96,13 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 					};
 			return $http.post(this.checpointAPIUrl() + "patient/ordonnances?patientToken=" + patientToken + "&applicationToken=" + this.getApplication().token);
 		},
+		listCommentaires : function(patientToken) {
+			var postData = {
+					  "applicationToken": this.getApplication().token,
+					  "patientToken" : patientToken
+					};
+			return $http.post(this.checpointAPIUrl() + "patient/commentaires?patientToken=" + patientToken + "&applicationToken=" + this.getApplication().token);
+		},
 		saveOrdonnance : function(ordonnance, patientToken) {
 			console.log("Saving ordonnance", ordonnance);
 			var postData = {
@@ -106,6 +113,19 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 					};
 			return $http.post(this.checpointAPIUrl() + "ordonnance/new",
 					postData);
+			
+		},
+		saveCommenaitre : function(commentaire, patientToken) {
+			console.log("Saving commentaire", commentaire);
+			var postData = {
+					  "applicationToken": this.getApplication().token,
+					  "utilisateurToken": this.getUser().token,
+					  "patientToken" : patientToken, 
+					  "commentaire" : commentaire
+					};
+			return $http.post(this.checpointAPIUrl() + "commentaire/add",
+					postData);
+			
 			
 		},
 		getOrdonnancePictureURL : function(fileToken) {

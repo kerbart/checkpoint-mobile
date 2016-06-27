@@ -1,0 +1,36 @@
+
+<ion-modal-view >
+    <ion-header-bar >
+      <h1 class="title">Ordonnance de {{patient.prenom}} {{patient.nom}}</h1>
+    </ion-header-bar>
+    <ion-content >  	
+		
+		
+		<div class="card">
+	    	<div class="item item-text-wrap">
+	    	
+								du {{ordonnance.dateDebut | date:'EEEE d LLLL yyyy'}} <br />
+								au {{ordonnance.dateFin | date:'EEEE d LLLL yyyy'}}
+								
+	    	</div>
+    	</div>
+    	
+    	
+    	<div class="padding">
+		<img ng-repeat="file in ordonnance.files" src="{{getOrdonnancePicture(file.token)}}" style="width:100%" />
+    	</div>
+    	
+		
+
+    </ion-content>
+   <div class="row custom-footer" >
+		<div class="row">
+			<div class="col" style="text-align:center">
+		    	<button class="button button-assertive  button-full icon-left ion-android-cancel" ng-click="closeVisuOrdonnance()" > Fermer l'ordonnance</button>			
+			</div>
+		</div>
+		</div>
+
+  </ion-modal-view>
+
+

@@ -107,10 +107,21 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
  
   .state('app.login', {
+    cache: false,
     url: '/login',
     views: {
       'menuContent': {
-        templateUrl: 'templates/login.html',
+        templateUrl: 'templates/login.signin.html',
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+  
+  .state('app.logincreate', {
+    url: '/logincreate',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login.create.account.html',
         controller: 'LoginCtrl'
       }
     }

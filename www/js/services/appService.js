@@ -1,7 +1,7 @@
 starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLoading, $ionicHistory) {
 	return {
 		checpointAPIUrl : function() {
-			return "http://ns328613.ip-37-187-114.eu:8080/checkpoint/api/";
+			return "http://kim.kerbart.com/checkpoint/api/";
 			// return "http://192.168.1.41:8080/checkpoint/api/";
 		},
 		isUserConnected : function() {
@@ -26,6 +26,10 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 					}
 			);
 		},
+		checkUserToken : function() {
+			var token = $localStorage.user != undefined ? $localStorage.user.token : "";
+			return $http.get(this.checpointAPIUrl() + "user/" +  token  + "/check");
+		},
 		listApplication : function() {
 			return $http.get(this.checpointAPIUrl() + "user/"  + $localStorage.user.token + "/app/list");
 		},
@@ -47,6 +51,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		},
 		removeUser : function(user) {
 			$localStorage.user  = undefined;
+			$localStorage.application = undefined;
 		},
 		// patient
 		createPatient : function(patient) {
@@ -136,16 +141,28 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		        	$ionicLoading.show({
 					      template: 'L\'ordonnance a été correctement téléchargée !.<br /><span class="ion-ios-checkmark-outline larger"></span>'
 				    });
-		        	 deffered.resolve(success);
-		        	
-		        	
+		        	window.setTimeout(
+		        			function() {
+		        				$ionicLoading.hide();
+		        				deffered.resolve(success);
+		        			},
+		        			500
+		        	);
 		        }, function(error) {
 		        	console.log("Error !!", error);
 		        	$ionicLoading.show({
 					      template: 'Impossible de télécharger l\'ordonnance !.<br /><span class="ion-ios-checkmark-outline larger"></span>'
 				    });
+		        	window.setTimeout(
+		        			function() {
+		        				$ionicLoading.hide();
+		        				deffered.resolve(error);
+		        			},
+		        			500
+		        	);
 		        	
-		        	 deffered.resolve(error);
+		        	
+		        	 
 		        	 
 		        	
 		        }, options);

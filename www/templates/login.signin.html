@@ -1,0 +1,43 @@
+<ion-view cache-view="false"> 
+	<ion-nav-bar class="bar-light">
+		<!--Logo-->
+		<ion-nav-buttons  side="right">
+		</ion-nav-buttons>
+		<ion-nav-buttons side="left">
+		</button>
+	</ion-nav-bar>
+
+
+	<ion-content>
+		<form novalidate class="simple-form" name="accountForm" dont-fill>
+			<ion-list>
+			<div class="item item-input-inset">
+				<label class="item item-input-wrapper"> <i
+					class="icon ion-ios-email-outline placeholder-icon larger"></i> <input
+					type="text" ng-model="user.email" ng-required="true"
+					autocomplete="off" placeholder="Votre email">
+				</label>
+			</div>
+		
+			<div class="item item-input-inset">
+				<label class="item item-input-wrapper"> <i
+					class="icon ion-ios-unlocked-outline placeholder-icon larger"></i> <input
+					type="password" ng-model="user.password" ng-required="true"
+					autocomplete="off" placeholder="Votre mot de passe">
+				</label>
+			</div>
+			</ion-list>
+			<div class="padding">
+				<button class="button button-block button-positive" ng-click="login()">Se
+					connecter</button>
+			</div>
+		</form>
+		<br />
+		<div style="text-align: center">
+			Pas encore de compte ? <a href="javascript:;"
+				ng-click="goLoginCreate()">Créer un compte</a>
+		</div>
+	</ion-content>
+</ion-view>
+
+

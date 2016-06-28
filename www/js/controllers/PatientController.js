@@ -6,7 +6,7 @@ starter
 				'PatientCtrl',
 				function($scope, $state, $stateParams, $ionicLoading,
 						$ionicActionSheet, $ionicHistory, $ionicModal,
-						$ionicPopup, $cordovaCamera, $cordovaFileTransfer,
+						$ionicPopup, $cordovaCamera, $cordovaFileTransfer,$ionicPopover,
 						appService) {
 					// permet de stocker la fiche patient pour l'affichage ou
 					// l'edition
@@ -131,6 +131,14 @@ starter
 								// add cancel code..
 							},
 							buttonClicked : function(index) {
+								if (index == 0) {
+									$scope.openPatientUpdate();
+								} else if (index == 1) {
+									$scope.addCommentaire ();
+								} else if (index == 2) {
+									$scope.openNewOrdonnance();
+								}
+								
 								return true;
 							}
 						});
@@ -224,25 +232,21 @@ starter
 						
 					}
 					
+					
 					$scope.addCommentaire = function() {
 						// An elaborate, custom popup
 						$scope.commentaire = {};
-						  $scope.popupComment = $ionicPopup.show({
-						    template: '<textarea placeholder="Votre commentaire" style="height:200px" ng-model="commentaire.texte"></textarea>',
-						    title: 'Commentaire',
-						    subTitle: 'Ajouter un commentaire à la fiche patient ' + $scope.patient.prenom + ' ' + $scope.patient.nom,
-						    scope: $scope,
-						    buttons: [
-						      { text: 'Annuler' },
-						      {
-						        text: '<b>Ajouter</b>',
-						        type: 'button-positive',
-						        onTap: function(e) {
-						        	$scope.saveCommentaire();
-						        }
-						      }
-						    ]
-						  });
+						
+						$ionicModal.fromTemplateUrl(
+								'templates/commentaire.html', {
+									scope : $scope,
+									animation : 'slide-in-up'
+								}).then(function(modal) {
+							$scope.commentaireModal = modal;
+							$scope.commentaireModal.show();
+						});
+						
+					
 						  
 					}
 					
@@ -260,7 +264,7 @@ starter
 									window.setTimeout(
 											function() {
 												$ionicLoading.hide();
-												$scope.popupComment.hide();
+												$scope.exitCommentaire();
 											},
 											1000
 									);
@@ -331,14 +335,18 @@ starter
 					$scope.exitOrdonnance = function() {
 						$scope.ordonnanceModal.hide();
 					}
+					
+					$scope.exitCommentaire = function() {
+						$scope.commentaireModal.hide();
+					}
 
 					$scope.takePic = function() {
 						var options = {
-							quality : 50,
+							quality : 80,
 							destinationType : Camera.DestinationType.FILE_URI,
 							sourceType : 1, // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-							encodingType : 0
-						// 0=JPG 1=PNG
+							encodingType : 0, // 0=JPG 1=PNG,
+							targetWidth : 1000
 						}
 						navigator.camera.getPicture(onSuccess, onFail, options);
 					}

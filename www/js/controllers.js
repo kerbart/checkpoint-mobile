@@ -67,16 +67,18 @@ var starter = angular
 					 * Liste les patients existant pour l'application
 					 * enregistrée
 					 */
+					$scope.patients = {};
 					$scope.listPatients = function() {
 						appService.listPatients().then(function(response) {
 							$localStorage.patients = response.data.patients;
+							$scope.patients = $localStorage.patients;
 							$scope.$broadcast('scroll.refreshComplete');
 						}, function(error) {
 							alert("erreur pour charger les patients");
 							$scope.$broadcast('scroll.refreshComplete');
 						});
 					}
-					$scope.patients = $localStorage.patients;
+					
 					
 					/**
 					 * On app opening
@@ -212,8 +214,13 @@ var starter = angular
 
 				})
 
-		.controller('HomeCtrl', function($scope, $ionicLoading, appService) {
-			$scope.listPatients();
+		.controller('HomeCtrl', function($scope, $ionicLoading,$localStorage, appService) {
+
+			ionic.Platform.ready(function() {
+				if (appService.isUserConnected()) {
+					$scope.listPatients();
+				}
+			});
 			
 		
 		})
@@ -225,7 +232,6 @@ var starter = angular
 
 					$scope.patient = {};
 					$scope.patient.actif = true;
-					$scope.patients = {};
 
 					$scope.addNewPatient = function() {
 						console.log("Add new Patient");
@@ -266,7 +272,6 @@ var starter = angular
 							token : token
 						});
 					}
-					$scope.patients = $localStorage.patients;
 					$scope.listPatients();
 
 				})

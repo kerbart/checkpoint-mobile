@@ -2,7 +2,8 @@
   <ion-nav-title> {{ patient.nom }} </ion-nav-title>
  <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-ios-compose-outline"
-        	ng-click="openPatientUpdate('{{patient.token}}')"
+        	
+        	ng-click="modifyPatient()"
          >
         </button>
       </ion-nav-buttons>
@@ -61,7 +62,7 @@
 			
 			<ion-list>
 				<ion-item ng-repeat="ordonnance in ordonnances" href="javascript:;" ng-click="openVisuOrdonnance(ordonnance)">		
-					<i class="ion-paperclip "></i> Ordonnance
+					<i class="ion-paperclip "></i> Ordonnance {{ordonnance.dateCreation | date:'EEEE d LLLL yyyy'}} ({{ordonnance.createur.email}})
 					<p>
 					du {{ordonnance.dateDebut | date:'EEEE d LLLL yyyy'}} <br />
 					au {{ordonnance.dateFin | date:'EEEE d LLLL yyyy'}}
@@ -84,10 +85,10 @@
 			
 				<ion-list>
 				<ion-item ng-repeat="commentaire in commentaires" href="javascript:;" >		
-					<i class="ion-ios-chatbubble "></i> {{commentaire.dateCreation | date:'EEEE d LLLL yyyy'}}
+					<i class="ion-ios-chatbubble "></i> le {{commentaire.dateCreation | date:'EEEE d LLLL yyyy'}} ({{commentaire.createur.email}})
 					<p>
 					<i>
-					Mon texte ici {{commentaire.texte}}
+					{{commentaire.texte}}
 					</i>
 					</p>
 					<ion-option-button class="button-assertive" >

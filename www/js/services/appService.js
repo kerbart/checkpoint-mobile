@@ -41,7 +41,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 			$localStorage.application = application;
 		},
 		getApplication : function() {
-			return $localStorage.application;
+			return $localStorage.application != undefined ? $localStorage.application : {"token" : "null"};
 		},
 		getUser : function() {
 			return $localStorage.user;
@@ -180,11 +180,6 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		        			},
 		        			500
 		        	);
-		        	
-		        	
-		        	 
-		        	 
-		        	
 		        }, options);
 		         
 		         return deffered.promise;

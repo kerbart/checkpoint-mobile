@@ -1,0 +1,29 @@
+
+<ion-modal-view >
+    <ion-header-bar >
+      <h1 class="title">Nouveau commentaire</h1>
+    </ion-header-bar>
+    <ion-content >  	
+		<form novalidate class="simple-form" name="accountForm" dont-fill >
+    		<div class="card">
+    		<textarea placeholder="Votre commentaire" style="height:200px;width:100%" ng-model="commentaire.texte"></textarea>
+    		</div>
+    	</form>
+    	<div class="row" >
+			<div class="col" style="text-align:center">
+		    	<button class="button button-assertive   icon-right ion-android-cancel" ng-click="exitCommentaire()" > Annuler</button>			
+			</div>
+			<div class="col" style="text-align:center">
+			   	<button class="button button-positive  icon-right ion-checkmark-round" ng-click="saveCommentaire()"> Enregistrer</button>
+			</div>
+		</div>
+    	
+    	
+		
+    </ion-content>
+   
+		
+
+  </ion-modal-view>
+
+

@@ -30,18 +30,22 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 			var token = $localStorage.user != undefined ? $localStorage.user.token : "";
 			return $http.get(this.checpointAPIUrl() + "user/" +  token  + "/check");
 		},
-		listApplication : function() {
-			return $http.get(this.checpointAPIUrl() + "user/"  + $localStorage.user.token + "/app/list");
+		listCabinets : function() {
+			return $http.get(this.checpointAPIUrl() + "user/"  + $localStorage.user.token + "/cabinet/list");
 		},
-		createApplication : function(name) {
-			return $http.post(this.checpointAPIUrl() + "user/"  + $localStorage.user.token + "/app/create",
+		createCabinet : function(name) {
+			return $http.post(this.checpointAPIUrl() + "user/"  + $localStorage.user.token + "/cabinet/create",
 					name);
 		},
-		storeApplication : function(application) {
-			$localStorage.application = application;
+		joinCabinet : function(shortCode) {
+			return $http.post(this.checpointAPIUrl() + "user/"  + $localStorage.user.token + "/cabinet/join",
+					shortCode);
 		},
-		getApplication : function() {
-			return $localStorage.application != undefined ? $localStorage.application : {"token" : "null"};
+		storeCabinet : function(cabinet) {
+			$localStorage.cabinet = cabinet;
+		},
+		getCabinet : function() {
+			return $localStorage.cabinet != undefined ? $localStorage.cabinet : {"token" : "null"};
 		},
 		getUser : function() {
 			return $localStorage.user;
@@ -51,12 +55,12 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		},
 		logout : function(user) {
 			$localStorage.user  = undefined;
-			$localStorage.application = undefined;
+			$localStorage.cabinet = undefined;
 		},
 		// patient
 		createPatient : function(patient) {
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
 					  "utilisateurToken": this.getUser().token,
 					  "patient": patient
 					};
@@ -65,7 +69,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		},
 		updatePatient : function(patient) {
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
 					  "utilisateurToken": this.getUser().token,
 					  "patient": patient
 					};
@@ -74,7 +78,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		},
 		loadPatient : function(token) {
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
 					  "utilisateurToken": this.getUser().token,
 					  "patient": {"token" : token}
 					};
@@ -83,7 +87,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		},
 		listPatients : function() {
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
 					  "utilisateurToken": this.getUser().token
 					};
 			return $http.post(this.checpointAPIUrl() + "patient/list",
@@ -91,22 +95,24 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		},
 		listOrdonnances : function(patientToken) {
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
+					  "utilisateurToken": this.getUser().token,
 					  "patientToken" : patientToken
 					};
-			return $http.post(this.checpointAPIUrl() + "patient/ordonnances?patientToken=" + patientToken + "&applicationToken=" + this.getApplication().token);
+			return $http.post(this.checpointAPIUrl() + "patient/ordonnances", postData);
 		},
 		listCommentaires : function(patientToken) {
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
+					  "utilisateurToken": this.getUser().token,
 					  "patientToken" : patientToken
 					};
-			return $http.post(this.checpointAPIUrl() + "patient/commentaires?patientToken=" + patientToken + "&applicationToken=" + this.getApplication().token);
+			return $http.post(this.checpointAPIUrl() + "patient/commentaires", postData);
 		},
 		saveOrdonnance : function(ordonnance, patientToken) {
 			console.log("Saving ordonnance", ordonnance);
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
 					  "utilisateurToken": this.getUser().token,
 					  "patientToken" : patientToken, 
 					  "ordonnance" : ordonnance
@@ -118,7 +124,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		saveCommenaitre : function(commentaire, patientToken) {
 			console.log("Saving commentaire", commentaire);
 			var postData = {
-					  "applicationToken": this.getApplication().token,
+					  "cabinetToken": this.getCabinet().token,
 					  "utilisateurToken": this.getUser().token,
 					  "patientToken" : patientToken, 
 					  "commentaire" : commentaire
@@ -129,7 +135,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 			
 		},
 		getOrdonnancePictureURL : function(fileToken) {
-			return this.checpointAPIUrl() + "/patient/ordonnance/photo?applicationToken=" + this.getApplication().token + "&fileToken=" + fileToken; 
+			return this.checpointAPIUrl() + "/patient/ordonnance/photo?cabinetToken=" + this.getCabinet().token + "&fileToken=" + fileToken; 
 		},
 		saveOrdonnancePicture : function(ordonnanceToken, file) {
 			 var deffered = $q.defer();
@@ -143,7 +149,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		        options.fileKey="source";
 		        options.chunkedMode = false;
 		        var params = {};
-		        params.applicationToken = this.getApplication().token;
+		        params.cabinetToken = this.getCabinet().token;
 		        params.ordonnanceToken = ordonnanceToken;
 		        options.params = params;
 		        var ft = new FileTransfer();

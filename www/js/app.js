@@ -126,6 +126,26 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+  
+   .state('app.appcreate', {
+    url: '/appcreate',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/newapplication.html',
+        controller: 'ApplicationCtrl'
+      }
+    }
+  })
+  
+    .state('app.cabinet', {
+    url: '/cabinet',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/cabinet.html',
+        controller: 'CabinetCtrl'
+      }
+    }
+  })
 
   
   // if none of the above states are matched, use this as the fallback

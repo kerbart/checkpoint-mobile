@@ -45,9 +45,6 @@ starter
 															"Impossible de créer votre compte :",
 															response.data.error);
 												}
-												
-												
-
 												return;
 											}
 											appService
@@ -55,8 +52,8 @@ starter
 											$scope.goHome();
 											console.log("hide loginModal...");
 											// check if new user have at least
-											// one application
-											$scope.checkApplicationExists();
+											// one cabinet
+											$scope.checkCabinetExists();
 										},
 										function(error) {
 											$scope
@@ -101,8 +98,8 @@ starter
 													});
 											$scope.goHome();
 											// check if new user have at least
-											// one application
-											$scope.checkApplicationExists();
+											// one cabinet
+											$scope.checkCabinetExists();
 										},
 										function(error) {
 											console.log("Erreur technique !",

@@ -4,6 +4,10 @@
 	background:none;
 }
 
+input {
+	    width: 100%;
+}
+
 .bar-positive {
 	background-color:#7d0000 !important;
 	bortder:none !important;
@@ -14,7 +18,7 @@
 	background: none;
 }
 
-.bg-login {
+.bg-boot {
 	background-image:url("bg-login.png"); 
 	background-size:100%;
 	background-repeat:repeat-y;

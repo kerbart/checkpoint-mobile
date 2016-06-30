@@ -28,6 +28,15 @@
           <i class="icon ion-ios-home"></i>
           Accueil
         </ion-item>
+         <ion-item 
+        	ng-if="userIsConnected()" 
+        	menu-close  
+        	class="item-icon-left" 
+        	href="#/app/cabinet"
+        	>
+        	<i class="icon ion-ios-briefcase-outline"></i>
+        	Mon cabinet
+        </ion-item>
         <ion-item 
         	menu-close 
         	class="item-icon-left" 

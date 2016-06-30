@@ -1,0 +1,46 @@
+<ion-view view-title="Mon espace">
+  <ion-content>
+
+
+		<div class="card">
+			<div class="item item-text-wrap">
+				Actuellement vous êtes sur l'espace
+				<br /><br />
+				<h2 class="ion-ios-briefcase-outline"> {{cabinet.name}}</h2>
+				<br />Inviter un collaborateur :
+				<input type="text" 
+					placeholder="Adresse email du colaborateur"
+					ng-model="collaborateur.email"><button class="button button-positive button-full" ng-click="inviteCollaborateur()">Inviter</button>
+			</div>
+		</div>
+
+		
+				
+		<div class="card">
+			<label class = "item item-input item-select ">
+		   		<span class = "input-label">
+		     		Changer d'espace :
+		   		</span>
+		   		<select ng-model="patient.civilite">	
+		   			<option value="Mr">Monsieur</option>
+		   			<option value="Mme">Madame</option>
+		   		</select>
+			</label>
+		</div>
+		
+		<div class="card">
+			<label class="item item-input"> 
+				<span class="input-label">Nouvel espace</span>
+				<input type="text" 
+					placeholder="Nom"
+					ng-model="newCabinet.name">
+			</label> 
+			<label class="item item-input"> 
+			<span class="input-label"></span>
+				<button class="button">Créer</button>
+			</label>
+		</div>
+
+
+  </ion-content>
+</ion-view>

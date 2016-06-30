@@ -56,6 +56,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		logout : function(user) {
 			$localStorage.user  = undefined;
 			$localStorage.cabinet = undefined;
+			$localStorage.patients = undefined;
 		},
 		// patient
 		createPatient : function(patient) {
@@ -135,7 +136,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 			
 		},
 		getOrdonnancePictureURL : function(fileToken) {
-			return this.checpointAPIUrl() + "/patient/ordonnance/photo?cabinetToken=" + this.getCabinet().token + "&fileToken=" + fileToken; 
+			return this.checpointAPIUrl() + "/patient/ordonnance/photo/" +this.getCabinet().token + "/" + this.getUser().token + "/" + fileToken; 
 		},
 		saveOrdonnancePicture : function(ordonnanceToken, file) {
 			 var deffered = $q.defer();
@@ -150,6 +151,7 @@ starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLo
 		        options.chunkedMode = false;
 		        var params = {};
 		        params.cabinetToken = this.getCabinet().token;
+		        params.utilisateurToken = this.getUser().token;
 		        params.ordonnanceToken = ordonnanceToken;
 		        options.params = params;
 		        var ft = new FileTransfer();

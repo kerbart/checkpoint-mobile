@@ -8,6 +8,13 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+      
+        <ion-nav-buttons side="right" id="cart_top_icon">
+        <button  ng-click="goToCart()"
+        	class="button button-icon button-clear ion-android-notifications-none" >
+        (3)
+        </button>
+      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
@@ -16,8 +23,7 @@
     
     <ion-content>
     <div class="padding" style="text-align:center">
-    <img src="img/checkpoint.png" style="width:33%" />
-    <h2 style="color:white">Checkpoint</h2>
+    <img src="img/ilet-logo.png" style="width:33%" />
     </div>
       <ion-list>
         <ion-item 

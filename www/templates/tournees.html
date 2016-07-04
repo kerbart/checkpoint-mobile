@@ -1,0 +1,19 @@
+<ion-view view-title="Mes tournees">
+
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-ios-plus-outline"
+        	ng-click="addNewPatient()"
+         >
+        </button>
+      </ion-nav-buttons>
+  
+  <ion-content>
+  	 <ion-refresher
+	    pulling-text="Tirez vers le bas pour rafraichir..."
+	    on-refresh="listPatients()">
+	  </ion-refresher>
+  <div pickadate ng-model="date"></div>
+  
+	
+  </ion-content>
+</ion-view>

@@ -1,7 +1,7 @@
 starter.service('appService', function ($log, $http, $localStorage, $q, $ionicLoading, $ionicHistory) {
 	return {
 		checpointAPIUrl : function() {
-			return "http://kim.kerbart.com/checkpoint/api/";
+			return "http://api.ilet.fr/ilet/api/";
 			// return "http://192.168.1.41:8080/checkpoint/api/";
 		},
 		isUserConnected : function() {
